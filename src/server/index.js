@@ -1,17 +1,15 @@
 import Hapi from "hapi";
+import routes from "./routes";
 
 const server=Hapi.server({
  host:"localhost",
  port:3000
 });
 
-server.route({
-    method:"GET",
-    path:"/",
-    handler:function(){
-        return "THIS IS HOMEPAGE"
-    }
+routes.forEach(route=>{
+    server.route(route)
 })
+
 
 async function start(){
     try {
