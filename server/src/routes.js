@@ -20,5 +20,19 @@ export default [{
         }
          fs.writeFileSync('src/todos.json', JSON.stringify(data));
         return "SAVED SUCCESSFULLY";
-    }
+    },
+ },{
+        method:"delete",
+        path:"/deleteTODO",
+        handler:function(request,h){
+           
+            const {id}=JSON.parse(request.payload);
+            let data = JSON.parse(fs.readFileSync('src/todos.json'));
+            if(data.ids.includes(id)){
+                data.ids.splice(data.ids.indexOf(id),1);
+                delete data.todos[id]
+            }
+             fs.writeFileSync('src/todos.json', JSON.stringify(data));
+             return "deleted SUCCESSFULLY";
+        }
 }]
