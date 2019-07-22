@@ -5,7 +5,7 @@ export default [{
     method:"GET",
     path:"/",
     handler:function(){
-        let rawdata = fs.readFileSync('src/server/todos.json');
+        let rawdata = fs.readFileSync('src/todos.json');
         console.log("aaaa",JSON.parse(rawdata));
         return "THIS IS HOMEPAGE"
     }
@@ -14,12 +14,12 @@ export default [{
     path:"/addTODO",
     handler:function(request,h){
         const {id,text,status}=request.payload;
-        let data = JSON.parse(fs.readFileSync('src/server/todos.json'));
+        let data = JSON.parse(fs.readFileSync('src/todos.json'));
         if(!data.ids.includes(id)){
             data.ids.push(id);
             data.todos[id]={text,status};
         }
-         fs.writeFileSync('src/server/todos.json', JSON.stringify(data));
+         fs.writeFileSync('src/todos.json', JSON.stringify(data));
         return "SAVED SUCCESSFULLY";
     }
 }]
