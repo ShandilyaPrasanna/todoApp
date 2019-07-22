@@ -3,17 +3,16 @@ const fs = require('fs');
 
 export default [{
     method:"GET",
-    path:"/",
+    path:"/getTodos",
     handler:function(){
         let rawdata = fs.readFileSync('src/todos.json');
-        console.log("aaaa",JSON.parse(rawdata));
-        return "THIS IS HOMEPAGE"
+        return rawdata
     }
 },{
     method:"POST",
     path:"/addTODO",
     handler:function(request,h){
-        const {id,text,status}=request.payload;
+        const {id,text,status}=JSON.parse(request.payload);
         let data = JSON.parse(fs.readFileSync('src/todos.json'));
         if(!data.ids.includes(id)){
             data.ids.push(id);
